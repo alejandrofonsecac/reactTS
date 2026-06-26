@@ -1,28 +1,30 @@
-import { useState } from 'react'
-
+import { useState } from "react";
 
 
 export function App() {
-  const [count, setCount] = useState(0)
-  const [hide, setHide] = useState(false)
+
+  const [list, setList] = useState([
+    {id: '1', label: 'Fazer café'},
+    {id: '2', label: 'Fazer café'},
+    {id: '3', label: 'Fazer almoço'},
+    {id: '4', label: 'Fazer janta'}
+  ]);
 
   return (
     <>
-      {hide && <h1>Hello1</h1>}
-      {!hide && <h1>Hello2</h1>}
+    <input type="text" placeholder="Digite algo..." />
+    <button>
+      Enviar
+    </button>
 
-      {hide
-        ? <p>Teste1</p>
-        : <p>Teste2</p>
-      }
+      <ol>
+        {list.map((listItem) => (
+          <li key={listItem.id}>
+            {listItem.label}
+          </li>
+        ))}
+      </ol>
 
-      <button onClick={() => setCount(count + 1)}>
-        {count}
-      </button>
-
-      <button onClick={() => setHide(!hide)}>
-        Toggle
-      </button>
     </>
   )
 }
