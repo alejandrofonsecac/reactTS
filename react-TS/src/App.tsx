@@ -12,15 +12,17 @@ export function App() {
     {id: '4', label: 'Fazer janta', complete: false}
   ]);
 
-  return (
-    <>
-      <InputAdd 
-        onAdd={(value) => {
-          setList([
+  const handleAdd = (value:string) => {
+    setList([
             ...list, 
             { id: (list.length + 1).toString(), complete: false, label: value }
           ])
-        }}
+  }
+
+  return (
+    <>
+      <InputAdd 
+        onAdd={handleAdd}
       />
       
 
