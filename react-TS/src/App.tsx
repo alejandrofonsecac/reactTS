@@ -2,6 +2,7 @@ import { useState } from "react";
 import { InputAdd } from "./components/InputAdd";
 import { TodoItem } from "./components/TodoItem";
 import { List } from "./components/List";
+import './mocks/server'
 
 
 export function App() {
