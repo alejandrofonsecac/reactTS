@@ -1,15 +1,16 @@
+import axios from "axios"
 import { useState } from "react"
 
 interface IInputAddProps{
     onAdd(value:string): void
 }
 
-export const InputAdd = (props: IInputAddProps) => {
+export const InputAdd = ({ onAdd }: IInputAddProps) => {
     const [value, setValue] = useState('')
-    
-    const handleAdd = () => {
-        props.onAdd(value); 
-        setValue('');
+
+    function handlerClick(){
+        onAdd(value);
+        setValue("");
     }
 
     return(
@@ -23,7 +24,7 @@ export const InputAdd = (props: IInputAddProps) => {
                 />
 
                 <button
-                    onClick={handleAdd}
+                    onClick={handlerClick}
                 >
                     Enviar
                 </button>

@@ -3,6 +3,7 @@ import { InputAdd } from "./components/InputAdd";
 import { TodoItem } from "./components/TodoItem";
 import { List } from "./components/List";
 import './mocks/server'
+import axios from "axios";
 
 
 export function App() {
@@ -15,11 +16,16 @@ export function App() {
     {id: '4', label: 'Fazer janta', complete: false}
   ]);
 
-  const handleAdd = (value:string) => {
-    setList([
-            ...list, 
-            { id: (list.length + 1).toString(), complete: false, label: value }
-          ])
+  async function loadMovies() {
+    const response = await axios.get("/api/movies")
+    console.log(response.data)
+  }
+
+  const handleAdd = async (value:string) => {
+    await axios.post("/api/movies", {
+      title: value
+    });
+    await loadMovies();
   }
 
   const handleComplete = (id:string) =>{
@@ -50,8 +56,8 @@ export function App() {
             id={listItem.id}
             label={listItem.label}
             complete={listItem.complete}
-            onComplete={() => handleComplete}
-            onDelete={() => handleDelete}
+            onComplete={handleComplete}
+            onDelete={handleDelete}
           />
         ))}
       </List>
