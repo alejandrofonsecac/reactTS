@@ -1,7 +1,7 @@
 interface ITodoItem {
     id: string;
     title: string;
-    complete: boolean;
+    watched: boolean;
     onComplete: (id: string) => void;
     onDelete: (id: string) => void;
 }
@@ -9,7 +9,7 @@ interface ITodoItem {
 export const TodoItem = ({
      id,
      title,
-     complete,
+     watched,
      onComplete,
      onDelete
     }: ITodoItem) => {
@@ -25,7 +25,7 @@ export const TodoItem = ({
     return (
         <li key={id}>
             {title}
-            {complete ? 'Concluído' : ''}
+            {watched ? 'Concluído' : ''}
 
             <button onClick={handleComplete}>Concluído</button>
             <button onClick={handleDelete}>Remover</button>

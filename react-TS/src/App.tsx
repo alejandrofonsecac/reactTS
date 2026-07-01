@@ -26,7 +26,9 @@ export function App() {
 
   useEffect(() => {
     loadMovies();
-  }, []);
+  }, [
+    //Neste [] fica as dependencias do useEffect, se deixada em branco o useEffect vai ser executado quando uma fução que tiver dentro dele for chamada
+  ]);
 
   const handleCreateMovie = async (value: string) => {
     if(!value.trim()) return;
@@ -71,6 +73,7 @@ export function App() {
             key={listItem.id}
             id={listItem.id}
             title={listItem.title}
+            watched={listItem.watched}
             onComplete={handleWatched}
             onDelete={handleDelete}
           />

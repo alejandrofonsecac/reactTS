@@ -21,8 +21,8 @@ export const TodoAPI = {
         return response.data.movie;
     },
 
-    updateWatched: async (id: string ,watched: boolean): Promise<IMovie[]> => {
-        const response = await api.put("/movies/${id}", {watched})
+    updateWatched: async (id: string, watched: boolean): Promise<IMovie[]> => {
+        const response = await api.put(`/movies/${id}`, {watched})
         return response.data.movie;
     },
 
