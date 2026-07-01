@@ -1,4 +1,3 @@
-// src/mocks/server.ts
 import { createServer, Model } from 'miragejs';
 
 createServer({

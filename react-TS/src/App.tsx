@@ -4,11 +4,12 @@ import { TodoItem } from "./components/TodoItem";
 import { List } from "./components/List";
 import './mocks/server';
 import axios from "axios";
+import { TodoAPI } from "./shared/service/TodoAPI";
 
 interface IMovie {
   id: string;
-  label: string;
-  complete: boolean;
+  title: string;
+  watched: boolean;
 }
 
 export function App() {
@@ -27,46 +28,50 @@ export function App() {
     loadMovies();
   }, []);
 
-  const handleAdd = async (value: string) => {
-    if (!value.trim()) return;
+  const handleCreateMovie = async (value: string) => {
+    if(!value.trim()) return;
     
-    await axios.post("/api/movies", {
-      label: value
-    });
-    
-    await loadMovies();
+    try{
+      await TodoAPI.create(value);
+      await loadMovies();
+    } catch (error){
+      console.error("Erro ao adicionar filme: ", error);
+    }
   }
 
-  const handleComplete = async (id: string) => {
+  const handleWatched = async (id: string) => {
     const movieToUpdate = list.find(item => item.id === id);
     if (!movieToUpdate) return;
 
-    await axios.put(`/api/movies/${id}`, {
-      complete: !movieToUpdate.complete
-    });
-
-    await loadMovies();
+    try{
+      await TodoAPI.updateWatched(id, !movieToUpdate.watched);
+      await loadMovies();
+    } catch (error){
+      console.error("Erro ao atualizar filme: ", error)
+    }
   }
 
-  // Deletar Filme
   const handleDelete = async (id: string) => {
-    await axios.delete(`/api/movies/${id}`);
-    await loadMovies();
+    try{
+      await TodoAPI.deleteById(id);
+      await loadMovies();
+    }catch (error){
+      console.error("Erro ao deletar um filme: ", error);
+    }
   }
 
   return (
     <>
       <h1>Minha Lista de Filmes</h1>
-      <InputAdd onAdd={handleAdd}/>
+      <InputAdd onAdd={handleCreateMovie}/>
       
       <List>
         {list.map((listItem) => (
           <TodoItem
             key={listItem.id}
             id={listItem.id}
-            label={listItem.label}
-            complete={listItem.complete}
-            onComplete={handleComplete}
+            title={listItem.title}
+            onComplete={handleWatched}
             onDelete={handleDelete}
           />
         ))}
