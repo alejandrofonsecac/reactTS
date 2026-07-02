@@ -1,4 +1,4 @@
-import axios, { create } from "axios";
+import axios from "axios";
 
 export interface IMovie {
     id: string;
